@@ -1,0 +1,96 @@
+
+-----------------------------------------------------------------
+Zen Cart Mod: MSRP Display
+
+Released under the GPL license found in the root directory of this package.
+Author: hbtrading
+Upgraded for Zen Cart v 1.3.9x  by Delia Wilson Lunsford, www.deliawilsondesign.com, www.zencartdelia.com
+Upgraded for Zen Cart 1.5 by Ray
+Modification code by bigsy85, implemented by KetchTech
+Eror fix by Design75
+Updated for Zen Cart v 1.5.4 to match 1.5.4 admin files by Frank Riegel (frank18) www.isonetwork.net.au
+Added bugfix in MSRP v 1.3.1 which caused prices not showing
+Updated for Zen Cart v 1.5.5 by jeking www.wheatonwebsiteservices.com
+------------------------------------------------------------------
+
+This modification allows you to show that your store price is lower than the manufacturer's suggested retail price. If your price is the same as or higher than the MSRP, then the MSRP will not be displayed. The customer's savings will also be displayed if it applies. Savings is based on the MSRP if it applies or on the selling price if a sale price is in effect.
+
+------------------------------------------------------------------
+
+Included files:
+
+New
+includes/languages/english/extra_defintions/your_custom_template/msrp.php 
+your_admin/includes/languages/english/extra_defintions/msrp.php 
+
+All of the rest of the files are core files with no override folders.
+includes/functions/functions_price.php 
+your_admin/includes/modules/update_product.php 
+your_admin/includes/modules/copy_to_confirm.php 
+your_admin/includes/modules/product/collect_info.php 
+
+------------------------------------------------------------------
+
+Installation instructions
+
+If you choose to install the MSRP mod using the enclosed files, you only need to make the following 2 changes. Upload the files to their respective folders - note that you must change the admin name to your name and your_custom_template to your template folder.
+
+1. Add a new field to the products table to hold the MSRP value.
+
+ALTER TABLE products ADD  `products_msrp` DECIMAL( 15, 4 ) NOT NULL AFTER  `products_price` ;
+
+2. In includes/templates/your_template/css/stylesheet.css, or includes/templates/classic/css/stylesheet.css
+
+Add:
+
+.smalltext1 {
+	
+	text-align: center;
+	color:#000000;
+	font-weight:bold;
+	}
+
+.save {
+	
+	text-align: center;
+	color:#636466;
+	font-weight:bold;
+	}
+	
+.norm {
+	
+	text-align: center;
+	color:#981B1E;
+	font-weight:bold;
+	}
+
+
+------------------------------------------------------------
+Uninstall Instructions
+
+If you decided you want to remove this mod, it's a case of reversing the actions above. 
+
+1) remove the added field to the products table that holds the MSRP value by either using your MYSQL Admin via your hosts c/p or run 
+ALTER TABLE `products` DROP `products_msrp`
+
+2) Delete 
+includes/languages/english/extra_defintions/your_custom_template/msrp.php 
+your_admin/includes/languages/english/extra_defintions/msrp.php
+
+3) Replace the folowing with the originals
+includes/functions/functions_price.php 
+your_admin/includes/modules/update_product.php 
+your_admin/includes/modules/copy_to_confirm.php
+your_admin/includes/modules/product/collect_info.php 
+
+4) Remove the CSS styling from your includes/templates/your_template/css/stylesheet.css file.
+
+
+------------------------------------------------------------------
+Change log:
+
+Sept 9, 2011:  moved languages changes to extra_definitions and new files, added copy product function, upgraded to 1.3.9h
+June 11 2012: upgraded to match zen cart's 1.5 file set and added uninstall instructions.
+2014 January 21:  modified includes/functions/function_prices.php to correct MSRP from showing when set price >/= MSRP; modified code by bigsy85, added by KetchTech
+2015 January 29: Fixed error. There was a missing "}" causing the mod to crash. 
+2018 August 1: updated files to be compatible with Zen Cart 1.5.5
